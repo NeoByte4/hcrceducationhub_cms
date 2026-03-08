@@ -5,7 +5,8 @@ services:
     repo: https://github.com/NeoByte4/hcrceducationhub_cms
     region: singapore
     plan: free
-    dockerfilePath: ./Dockerfile
+    image:
+      url: directus/directus:latest
     envVars:
       # Database Configuration (from your PostgreSQL)
       - key: DB_CLIENT
@@ -76,15 +77,6 @@ services:
         value: no-reply@hcrceducationhub.com
       - key: EMAIL_TRANSPORT
         value: sendmail
-
-    # Sensitive keys (set these manually in Render dashboard)
-    # KEY: [GENERATE AND SET MANUALLY]
-    # SECRET: [GENERATE AND SET MANUALLY]
-
-    disk:
-      name: uploads
-      mountPath: /directus/uploads
-      sizeGB: 1
 
     healthCheckPath: /server/health
     autoDeploy: true
