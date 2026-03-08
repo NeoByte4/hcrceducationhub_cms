@@ -2,7 +2,6 @@ services:
   - type: web
     name: hcrceducationhub-cms
     runtime: image
-    repo: https://github.com/NeoByte4/hcrceducationhub_cms
     region: singapore
     plan: free
     image:
