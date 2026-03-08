@@ -1,0 +1,90 @@
+services:
+  - type: web
+    name: hcrceducationhub-cms
+    runtime: image
+    repo: https://github.com/NeoByte4/hcrceducationhub_cms
+    region: singapore
+    plan: free
+    dockerfilePath: ./Dockerfile
+    envVars:
+      # Database Configuration (from your PostgreSQL)
+      - key: DB_CLIENT
+        value: postgres
+      - key: DB_HOST
+        value: dpg-d6mpsnftskes73e2j8hg-a
+      - key: DB_PORT
+        value: "5432"
+      - key: DB_DATABASE
+        value: hcrceducationhub
+      - key: DB_USER
+        value: hcrceducationhub_user
+      - key: DB_PASSWORD
+        value: 2aL7ckU8xMCYRQJgRhBlTcN5x1cQAh3l
+
+      # Directus Admin (CHANGE THESE)
+      - key: ADMIN_EMAIL
+        value: admin@hcrceducationhub.com
+      - key: ADMIN_PASSWORD
+        value: ChangeThisPassword123!
+
+      # Network and Port
+      - key: HOST
+        value: 0.0.0.0
+      - key: PORT
+        value: "8055"
+      - key: PUBLIC_URL
+        value: https://hcrceducationhub-cms.onrender.com
+
+      # CORS Settings
+      - key: CORS_ENABLED
+        value: "true"
+      - key: CORS_ORIGIN
+        value: "true"
+      - key: CORS_METHODS
+        value: GET,POST,PATCH,DELETE
+      - key: CORS_ALLOWED_HEADERS
+        value: Content-Type,Authorization
+      - key: CORS_CREDENTIALS
+        value: "true"
+
+      # File Storage
+      - key: STORAGE_LOCATIONS
+        value: local
+      - key: STORAGE_LOCAL_DRIVER
+        value: local
+      - key: STORAGE_LOCAL_ROOT
+        value: /directus/uploads
+
+      # Rate Limiting
+      - key: RATE_LIMITER_ENABLED
+        value: "true"
+      - key: RATE_LIMITER_POINTS
+        value: "25"
+      - key: RATE_LIMITER_DURATION
+        value: "1"
+
+      # Cache
+      - key: CACHE_ENABLED
+        value: "true"
+      - key: CACHE_TTL
+        value: "30m"
+      - key: CACHE_AUTO_PURGE
+        value: "true"
+
+      # Email (Configure later)
+      - key: EMAIL_FROM
+        value: no-reply@hcrceducationhub.com
+      - key: EMAIL_TRANSPORT
+        value: sendmail
+
+    # Sensitive keys (set these manually in Render dashboard)
+    # KEY: [GENERATE AND SET MANUALLY]
+    # SECRET: [GENERATE AND SET MANUALLY]
+
+    disk:
+      name: uploads
+      mountPath: /directus/uploads
+      sizeGB: 1
+
+    healthCheckPath: /server/health
+    autoDeploy: true
